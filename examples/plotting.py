@@ -119,7 +119,13 @@ def plot_model_parameters_foreach(model_parameters_foreach,
         labels.extend(model_parameter_names)
 
     ah.set_ylabel('Model parameter value, $m_i$')
-    ah.set_xlabel('Observation time, $t$')
+    ah.set_xlabel('Measurement step, $k$')
+    
+    if isinstance(reference_times, range) or \
+       all(isinstance(v, int) for v in reference_times):
+        # ah.set_xticklabels(reference_times)
+        ah.set_xticks(reference_times)
+
     ah.grid(True)
 
     if handles and labels:
@@ -139,7 +145,6 @@ def plot_model_parameters_forall(model_parameters_forall,
 
     if model_parameter_names is None:
         model_parameter_names = list(range(0, len(model_parameters_forall)))
-
 
     ah.bar(model_parameter_names, model_parameters_forall, edgecolor='k')
     ah.set_ylabel('Model parameter value, $m_i$')
@@ -171,7 +176,13 @@ def plot_model_cost(cost_values_final=None,
     # ah.set_title(figname)
     ah.ticklabel_format(**AXIS_TICKLABEL_FORMAT_KWARGS)
     ah.set_ylabel('Model cost, $J$')
-    ah.set_xlabel('Observation time, $t$')
+    ah.set_xlabel('Measurement step, $k$')
+
+    if isinstance(reference_times, range) or \
+       all(isinstance(v, int) for v in reference_times):
+        # ah.set_xticklabels(reference_times)
+        ah.set_xticks(reference_times)
+
     ah.grid(True)
 
     if cost_values_final   is not None and \
@@ -200,9 +211,15 @@ def plot_cost_gradients(cost_gradients,
 
     ah.ticklabel_format(**AXIS_TICKLABEL_FORMAT_KWARGS)
     ah.set_ylabel('Model cost derivative, $DJ/Dm_i$')
-    ah.set_xlabel('Observation time, $t$')
-    ah.grid(True)
+    ah.set_xlabel('Measurement step, $k$')
 
+    if isinstance(reference_times, range) or \
+       all(isinstance(v, int) for v in reference_times):
+        # ah.set_xticklabels(reference_times)
+        ah.set_xticks(reference_times)
+
+    ah.grid(True)
+    
     if lh and model_parameter_names is not None:
         ah.legend(lh, model_parameter_names)
 
@@ -226,9 +243,15 @@ def plot_observation_misfit(error_observation,
 
     ah.ticklabel_format(**AXIS_TICKLABEL_FORMAT_KWARGS)
     ah.set_ylabel(ylabel)
-    ah.set_xlabel('Observation time, $t$')
-    ah.grid(True)
+    ah.set_xlabel('Measurement step, $k$')
 
+    if isinstance(reference_times, range) or \
+       all(isinstance(v, int) for v in reference_times):
+        # ah.set_xticklabels(reference_times)
+        ah.set_xticks(reference_times)
+
+    ah.grid(True)
+    
     plt.tight_layout()
 
     return fh, simplify_figure_name(figname)
@@ -250,11 +273,10 @@ def plot_reaction_force_vs_displacement(
     lh.extend(plt.plot(u_msr, f_msr, 'rx:'))
     lh.extend(plt.plot(u_msr, f_obs, 'bo-'))
 
-
     ah.ticklabel_format(**AXIS_TICKLABEL_FORMAT_KWARGS)
     ah.set_ylabel('Reaction force, $||f||$')
     ah.set_xlabel('Displacement, $||u||$')
-    ah.legend(['measurement', 'observation'])
+    ah.legend(['experimental measurements', 'model observations'])
     ah.grid(True)
 
     plt.tight_layout()
@@ -333,7 +355,7 @@ def plot_model_parameter_sensitivities(
         labels.extend(model_parameter_names)
 
     ah.set_ylabel(ylabel)
-    ah.set_xlabel('Observation time, $t$')
+    ah.set_xlabel('Measurement step, $k$')
     ah.set_xticklabels(reference_times)
     ah.set_xticks(reference_times)
     ah.grid(True, axis='y')
