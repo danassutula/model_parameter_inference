@@ -57,17 +57,18 @@ PROBLEM_NAME = os.path.basename(os.path.split(__file__)[0])
 
 ### Problem parameters
 
-# PROBLEM_SUBCASE = "monolithic"
-# MATERIAL_MODEL_NAMES = ["NeoHookean"]
+PROBLEM_SUBCASE = "monolithic"
+MATERIAL_MODEL_NAMES = ["NeoHookean"]
 
-PROBLEM_SUBCASE = "bimaterial"
-MATERIAL_MODEL_NAMES = ["NeoHookean", "NeoHookean"]
-ONLY_SOLVE_KELOID_MODEL_PARAMETERS = True
+# PROBLEM_SUBCASE = "bimaterial"
+# MATERIAL_MODEL_NAMES = ["NeoHookean", "NeoHookean"]
+# ONLY_SOLVE_KELOID_MODEL_PARAMETERS = True
 
+# MESH_NAME_TAG = "1"
 MESH_NAME_TAG = "5" # "1", "2", "3", "4", "5"
 
 MAXIMUM_OBSERVATIONS = 10
-# MAXIMUM_OBSERVATIONS = 3
+# MAXIMUM_OBSERVATIONS = 3 # TEST
 
 FIXED_EXTERNAL_BOUNDARY = False
 MAXIMUM_DISPLACEMENT = 2.0 # 3.0 # NOTE: # Maximum displacement is `4.112`
@@ -80,7 +81,7 @@ COMPUTE_FINAL_COST = True
 COMPUTE_SENSITIVITIES = True
 COMPUTE_REACTION_FORCE = True
 COMPUTE_MISFIT_ERROR = True
-COMPUTE_MISFIT_FIELD = True
+COMPUTE_MISFIT_FIELD = False
 COMPUTE_STRESS_FIELD = False
 
 OPTIMIZE_FOREACH_OBSERVATION_TIME = False
@@ -96,7 +97,7 @@ MESHLESS_WEIGHT = "center" # "center", "uniform"
 PLOT_RESULTS = True
 SAVE_RESULTS = True
 
-SAVE_FIGURE_EXTENSIONS = ('.png', '.svg', '.pdf')
+SAVE_FIGURE_EXTENSIONS = ('.png', '.pdf')
 
 if not (isinstance(MATERIAL_MODEL_NAMES, (list, tuple)) and \
         all(isinstance(name_i, str) for name_i in MATERIAL_MODEL_NAMES)):
